@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Редагування завдання | Менеджер Завдань</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/animations.css">
+    <script src="/js/script.js" defer></script>
+</head>
+<body>
+<div class="container">
+    <header>
+        <h1>Редагування завдання</h1>
+    </header>
+
+    <main>
+        <form action="/tasks/<%= task.id %>/update" method="POST" class="form">
+            <div class="form-group">
+                <label for="title">Назва:</label>
+                <input type="text" id="title" name="title" value="<%= task.title %>" required>
+            </div>
+
+            <div class="form-group">
+                <label for="description">Опис:</label>
+                <textarea id="description" name="description" rows="3"><%= task.description %></textarea>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="dueDate">Термін виконання:</label>
+                    <input type="date" id="dueDate" name="dueDate" value="<%= task.due_date ? new Date(task.due_date).toISOString().split('T')[0] : '' %>">
+                </div>
+
+                <div class="form-group">
+                    <label for="priority">Пріоритет:</label>
+                    <select id="priority" name="priority">
+                        <option value="Низький" <%= task.priority === 'Низький' ? 'selected' : '' %>>Низький</option>
+                        <option value="Середній" <%= task.priority === 'Середній' ? 'selected' : '' %>>Середній</option>
+                        <option value="Високий" <%= task.priority === 'Високий' ? 'selected' : '' %>>Високий</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="buttons">
+                <button type="submit" class="btn btn-primary">Зберегти зміни</button>
+                <a href="/dashboard" class="btn">Скасувати</a>
+            </div>
+        </form>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Менеджер Завдань</p>
+    </footer>
+</div>
+</body>
+</html>

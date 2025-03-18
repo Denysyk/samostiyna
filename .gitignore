@@ -1,0 +1,33 @@
+# Залежності
+node_modules/
+package-lock.json
+
+# Логи
+logs
+*.log
+npm-debug.log*
+
+# Змінні оточення
+.env
+.env.local
+.env.development
+.env.test
+.env.production
+
+# Системні файли
+.DS_Store
+Thumbs.db
+
+# Директорії IDE та редакторів
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+
+# Тимчасові файли
+tmp/
+temp/
+
+# Локальні файли бази даних
+*.sqlite
+*.sqlite3

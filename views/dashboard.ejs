@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Панель керування | Менеджер Завдань</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/animations.css">
+    <script src="/js/script.js" defer></script>
+</head>
+<body>
+<div class="container">
+    <header class="dashboard-header">
+        <h1>Панель керування</h1>
+        <div class="user-info">
+            <span>Привіт, <%= username %>!</span>
+            <a href="/logout" class="btn btn-small">Вийти</a>
+        </div>
+    </header>
+
+    <main>
+        <section class="add-task">
+            <h2>Додати нове завдання</h2>
+            <form action="/tasks" method="POST" class="form">
+                <div class="form-group">
+                    <label for="title">Назва:</label>
+                    <input type="text" id="title" name="title" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="description">Опис:</label>
+                    <textarea id="description" name="description" rows="3"></textarea>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="dueDate">Термін виконання:</label>
+                        <input type="date" id="dueDate" name="dueDate">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="priority">Пріоритет:</label>
+                        <select id="priority" name="priority">
+                            <option value="Низький">Низький</option>
+                            <option value="Середній" selected>Середній</option>
+                            <option value="Високий">Високий</option>
+                        </select>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Додати завдання</button>
+            </form>
+        </section>
+
+        <section class="task-list">
+            <h2>Ваші завдання</h2>
+
+            <% if (typeof error !== 'undefined') { %>
+                <div class="error-message">
+                    <%= error %>
+                </div>
+            <% } %>
+
+            <% if (tasks.length === 0) { %>
+                <p class="no-tasks">У вас ще немає завдань. Додайте своє перше завдання!</p>
+            <% } else { %>
+                <div class="tasks">
+                    <% tasks.forEach(task => { %>
+                        <div class="task-card <%= task.completed ? 'completed' : '' %>">
+                            <div class="task-header">
+                                <h3 class="task-title"><%= task.title %></h3>
+                                <span class="task-priority priority-<%= task.priority.toLowerCase() %>"><%= task.priority %></span>
+                            </div>
+
+                            <div class="task-body">
+                                <p class="task-description"><%= task.description %></p>
+
+                                <% if (task.due_date) { %>
+                                    <p class="task-due-date">
+                                        Термін: <%= new Date(task.due_date).toLocaleDateString('uk-UA') %>
+                                    </p>
+                                <% } %>
+                            </div>
+
+                            <div class="task-actions">
+                                <form action="/tasks/<%= task.id %>/toggle" method="POST" class="inline-form">
+                                    <button type="submit" class="btn btn-small">
+                                        <%= task.completed ? 'Відмінити' : 'Виконано' %>
+                                    </button>
+                                </form>
+
+                                <a href="/tasks/<%= task.id %>/edit" class="btn btn-small">Редагувати</a>
+
+                                <form action="/tasks/<%= task.id %>/delete" method="POST" class="inline-form">
+                                    <button type="submit" class="btn btn-small btn-danger" onclick="return confirm('Ви впевнені, що хочете видалити це завдання?')">
+                                        Видалити
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    <% }) %>
+                </div>
+            <% } %>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Менеджер Завдань</p>
+    </footer>
+</div>
+</body>
+</html>

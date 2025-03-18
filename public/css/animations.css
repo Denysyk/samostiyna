@@ -1,0 +1,390 @@
+
+* {
+    transition: all 0.3s ease;
+}
+
+/* Header animations */
+header h1 {
+    position: relative;
+    display: inline-block;
+}
+
+header h1::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 3px;
+    bottom: -5px;
+    left: 0;
+    background-color: var(--accent-color);
+    transition: width 0.4s ease;
+}
+
+header h1:hover::after {
+    width: 100%;
+}
+
+/* Button animations */
+.btn {
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    transform: translateY(0);
+}
+
+.btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.2);
+    transition: left 0.3s ease;
+    z-index: -1;
+}
+
+.btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.btn:hover::before {
+    left: 100%;
+}
+
+.btn:active {
+    transform: translateY(1px);
+}
+
+/* Form field animations */
+input, select, textarea {
+    border: 1px solid var(--border-color);
+    transition: border 0.3s, box-shadow 0.3s;
+}
+
+input:focus, select:focus, textarea:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+    outline: none;
+}
+
+/* Task card animations and enhancements */
+.task-card {
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(to right, var(--card-bg) 0%, rgba(245, 245, 245, 0.5) 50%, var(--card-bg) 100%);
+    background-size: 200% 100%;
+    background-position: 100% 0;
+    transition: all 0.5s ease, border-left-width 0.3s;
+}
+
+.task-card:hover {
+    background-position: 0 0;
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    border-left-width: 8px;
+}
+
+.task-card .task-header {
+    transition: padding 0.3s ease;
+}
+
+.task-card:hover .task-header {
+    padding-left: 5px;
+}
+
+/* Task priority badge enhancements */
+.task-priority {
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s, opacity 0.3s;
+}
+
+.task-priority:hover {
+    transform: scale(1.1);
+    opacity: 0.9;
+}
+
+/* Add pulse animation for high priority tasks */
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+.priority-високий {
+    animation: pulse 2s infinite;
+}
+
+/* Add loading animation for form submissions */
+@keyframes loading {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.btn-primary:focus::after {
+    content: '';
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    right: 10px;
+    top: 50%;
+    margin-top: -5px;
+    border: 2px solid white;
+    border-top-color: transparent;
+    border-radius: 50%;
+    animation: loading 0.8s linear infinite;
+}
+
+/* Task completion animation */
+@keyframes strikethrough {
+    from { width: 0; }
+    to { width: 100%; }
+}
+
+.task-card.completed .task-title::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: var(--text-color);
+    animation: strikethrough 0.3s ease-in forwards;
+}
+
+.task-card.completed {
+    transition: opacity 0.5s;
+}
+
+/* Feature section enhancement */
+.features {
+    position: relative;
+    overflow: hidden;
+}
+
+.features::before {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    right: -10px;
+    bottom: -10px;
+    background: linear-gradient(135deg, rgba(26, 188, 156, 0.1) 0%, rgba(52, 152, 219, 0.1) 100%);
+    z-index: -1;
+    transform: scale(0.95);
+    transition: transform 0.3s;
+    border-radius: 12px;
+}
+
+.features:hover::before {
+    transform: scale(1);
+}
+
+.features li {
+    position: relative;
+    padding-left: 5px;
+    transition: padding-left 0.3s;
+}
+
+.features li::before {
+    content: '→';
+    position: absolute;
+    left: -15px;
+    opacity: 0;
+    transition: opacity 0.3s, left 0.3s;
+}
+
+.features li:hover {
+    padding-left: 15px;
+}
+
+.features li:hover::before {
+    opacity: 1;
+    left: 0;
+}
+
+/* Page transition effects */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+body {
+    animation: fadeIn 0.5s ease-out;
+}
+
+main {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeIn 0.5s ease-out 0.1s forwards;
+}
+
+/* Add modern gradient background */
+body {
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    background-attachment: fixed;
+}
+
+.container {
+    background-color: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+/* Add custom scrollbar */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--primary-color);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--secondary-color);
+}
+
+/* Task list skeleton loading animation */
+@keyframes shimmer {
+    0% { background-position: -1000px 0; }
+    100% { background-position: 1000px 0; }
+}
+
+.task-card.loading {
+    background: linear-gradient(to right, #f6f7f8 8%, #edeef1 18%, #f6f7f8 33%);
+    background-size: 1000px 100%;
+    animation: shimmer 2s infinite linear;
+}
+
+/* Interactive checkbox design */
+.task-checkbox {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 2px solid var(--primary-color);
+    outline: none;
+    cursor: pointer;
+    position: relative;
+    margin-right: 10px;
+    vertical-align: middle;
+}
+
+.task-checkbox:checked {
+    background-color: var(--primary-color);
+}
+
+.task-checkbox:checked::after {
+    content: '✓';
+    position: absolute;
+    color: white;
+    font-size: 14px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* Improved notifications style */
+.notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 15px 20px;
+    background-color: var(--card-bg);
+    color: var(--text-color);
+    border-left: 4px solid var(--primary-color);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+    z-index: 1000;
+    opacity: 0;
+    transform: translateX(50px);
+    animation: slideIn 0.5s forwards, fadeOut 0.5s 4.5s forwards;
+}
+
+@keyframes slideIn {
+    to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes fadeOut {
+    to { opacity: 0; transform: translateY(-20px); }
+}
+
+/* Dark mode feature */
+.dark-mode-toggle {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: var(--primary-color);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    transition: all 0.3s;
+}
+
+.dark-mode-toggle:hover {
+    transform: scale(1.1);
+}
+
+/* Dark mode colors (will be toggled with JavaScript) */
+body.dark-mode {
+    --primary-color: #3498db;
+    --secondary-color: #2980b9;
+    --accent-color: #1abc9c;
+    --danger-color: #e74c3c;
+    --text-color: #f5f5f5;
+    --light-text: #aaa;
+    --bg-color: #222;
+    --card-bg: #333;
+    --border-color: #444;
+    color: var(--text-color);
+    background: linear-gradient(135deg, #2c3e50 0%, #1a1a1a 100%);
+}
+
+body.dark-mode .container {
+    background-color: rgba(30, 30, 30, 0.8);
+}
+
+/* Add task button animation */
+.add-task-button {
+    position: fixed;
+    bottom: 20px;
+    right: 80px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: var(--accent-color);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    cursor: pointer;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    transition: all 0.3s;
+}
+
+.add-task-button:hover {
+    transform: rotate(90deg);
+    background-color: #16a085;
+}
